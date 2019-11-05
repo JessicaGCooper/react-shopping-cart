@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useState, createContext } from 'react'
 
 
-const CartContext = React.createContext({
-    cart: [],
-    addItem: () => {}
- })
+export const CartContext = createContext()
 
-export default CartContext
+export const CartContextProvider = props => {
+
+    const [cart, setCart] = useState([]);
+    
+    const addItem = item => {
+        setCart([...cart, item])
+    }
+    
+    return (
+        <CartContext.Provider value={[cart, addItem]} >
+            {props.children}
+        </CartContext.Provider>
+    )
+}
